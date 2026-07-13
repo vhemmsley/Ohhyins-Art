@@ -1,7 +1,7 @@
 <template>
   <main class="bg-ivory overflow-x-hidden">
     <!-- HERO -->
-    <section class="relative min-h-screen flex items-center overflow-hidden pt-24">
+    <section class="relative min-h-screen flex items-center overflow-hidden pt-20 lg:pt-20">
       <!-- Subtle texture -->
       <div
         class="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -19,15 +19,15 @@
       />
 
       <div
-        class="max-w-gallery mx-auto px-8 w-full grid lg:grid-cols-[1fr_1.2fr] gap-16 items-center relative z-10"
+        class="max-w-gallery mx-auto px-8 w-full grid lg:grid-cols-[1fr_1.2fr] gap-16 items-center relative z-10 pb-12"
       >
         <!-- Left -->
         <div class="text-center lg:text-left pt-4">
           <div class="inline-flex items-center gap-3 mb-6">
             <span class="w-8 h-px bg-gold" />
-            <span class="text-[11px] font-medium tracking-[0.3em] uppercase text-gold font-body">
-              Original Paintings
-            </span>
+            <span class="text-[11px] font-medium tracking-[0.3em] uppercase text-gold font-body"
+              >Original Paintings</span
+            >
           </div>
 
           <h1
@@ -40,7 +40,6 @@
           <p
             class="font-heading text-[clamp(18px,2.2vw,21px)] font-light italic text-sage mb-8 tracking-wide"
           >
-            <!-- Inspired by emotion, nature, and memory -->
             Take your broken Heart and make it into art 🎨
           </p>
 
@@ -104,21 +103,28 @@
         </div>
 
         <!-- Right - Artwork -->
-        <div class="relative h-[50vh] lg:h-[70vh] flex items-center justify-center">
-          <div class="relative w-full max-w-[480px] aspect-[3/4]">
-            <img
-              src="@/components/images/hero-artwork.jpg"
-              alt="Featured Artwork"
-              class="w-full h-full object-cover rounded-lg shadow-gallery animate-slowZoom"
-            />
+        <div class="relative flex items-center justify-center py-8">
+          <!-- Wrapper with padding to contain border -->
+          <div class="relative p-4">
+            <!-- Image container with overflow-hidden to clip zoom -->
+            <div class="relative w-full max-w-[420px] aspect-[3/4] overflow-hidden rounded-lg">
+              <img
+                :src="heroArtwork"
+                alt="Featured Artwork"
+                class="w-full h-full object-cover animate-slowZoom"
+              />
+            </div>
+            <!-- Gold border positioned exactly around the image -->
             <div
-              class="absolute -inset-3.5 border border-gold rounded-lg opacity-25 pointer-events-none"
+              class="absolute inset-0 border border-gold rounded-lg opacity-25 pointer-events-none m-1.5"
             />
-            <div class="absolute bottom-9 right-1 text-right">
-              <div class="font-heading text-base text-white font-bold">RARE</div>
-              <div class="text-[10px] text-white tracking-[0.15em] mt-0.5 uppercase font-body">
-                5ft x 5ft <br />
-                Acrylic on canvas
+            <!-- Artwork label -->
+            <div class="absolute bottom-4 right-5 text-right">
+              <div class="font-heading text-base text-white font-bold drop-shadow-md">RARE</div>
+              <div
+                class="text-[10px] text-white tracking-[0.15em] mt-0.5 uppercase font-body drop-shadow-md"
+              >
+                5ft x 5ft <br />Acrylic on canvas
               </div>
             </div>
           </div>
@@ -159,18 +165,15 @@
           <div
             class="absolute inset-0 bg-gradient-to-t from-[rgba(33,77,53,0.88)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6"
           >
-            <div class="font-heading text-[22px] font-normal text-white mb-1">
-              {{ art.title }}
-            </div>
+            <div class="font-heading text-[22px] font-normal text-white mb-1">{{ art.title }}</div>
             <div class="text-[10px] text-champagne tracking-[0.15em] mb-3 uppercase font-body">
               {{ art.medium }}
             </div>
             <RouterLink
               :to="art.link"
               class="text-[11px] font-medium tracking-[0.12em] uppercase text-white inline-flex items-center gap-1.5 transition-all duration-300 hover:gap-2.5 font-body"
+              >View Artwork &rarr;</RouterLink
             >
-              View Artwork &rarr;
-            </RouterLink>
           </div>
         </div>
       </div>
@@ -186,7 +189,7 @@
       <div class="max-w-gallery mx-auto px-8 grid lg:grid-cols-2 gap-20 items-center">
         <div class="relative flex justify-center lg:justify-start">
           <img
-            src="@/components/images/artist1.jpg"
+            :src="artist1"
             alt="Artist Portrait"
             class="w-full max-w-[440px] aspect-[3/4] object-cover rounded-lg shadow-gallery"
           />
@@ -220,9 +223,8 @@
           >
             <span
               class="absolute top-2 left-3 font-heading text-[72px] text-gold opacity-15 leading-[0.5]"
+              >&ldquo;</span
             >
-              &ldquo;
-            </span>
             <p
               class="font-heading text-xl italic font-light text-forest leading-[1.6] relative z-10"
             >
@@ -266,14 +268,17 @@
         </p>
       </div>
 
+      <!-- REDUCED HEIGHT: changed from h-[520px] to h-[400px] on large screens -->
       <div
-        class="max-w-gallery mx-auto px-8 grid lg:grid-cols-[1.5fr_1fr] gap-4 h-auto lg:h-[520px]"
+        class="max-w-gallery mx-auto px-8 grid lg:grid-cols-[1.5fr_1fr] gap-4 h-auto lg:h-[400px]"
       >
-        <div class="relative rounded-lg overflow-hidden cursor-pointer group h-[400px] lg:h-full">
+        <div
+          class="relative rounded-lg overflow-hidden cursor-pointer group h-[300px] sm:h-[350px] lg:h-full"
+        >
           <img
-            src="@/components/images/hero-artwork.jpg"
+            :src="heroArtwork"
             alt="Nature's Whisper"
-            class="w-full h-full object-cover transition-transform duration-800 group-hover:scale-[1.04]"
+            class="w-full h-[490px] object-cover transition-transform duration-800 group-hover:scale-[1.04]"
           />
           <div
             class="absolute inset-0 bg-gradient-to-t from-[rgba(33,77,53,0.8)] to-transparent flex flex-col justify-end p-7 group-hover:from-[rgba(33,77,53,0.9)] transition-all duration-400"
@@ -289,7 +294,7 @@
           <div
             v-for="collection in sideCollections"
             :key="collection.name"
-            class="relative flex-1 rounded-lg overflow-hidden cursor-pointer group min-h-[200px] lg:min-h-0"
+            class="relative flex-1 rounded-lg overflow-hidden cursor-pointer group max-h-[200px] sm:min-h-[180px] lg:min-h-0"
           >
             <img
               :src="collection.image"
@@ -397,9 +402,8 @@
             <RouterLink
               :to="exhibition.link"
               class="text-[11px] font-medium tracking-[0.12em] uppercase text-white inline-flex items-center gap-2 opacity-0 translate-y-2.5 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-400 font-body"
+              >View Exhibition &rarr;</RouterLink
             >
-              View Exhibition &rarr;
-            </RouterLink>
           </div>
         </div>
       </div>
@@ -506,9 +510,7 @@
           <div class="text-[10px] font-medium tracking-[0.18em] uppercase text-gold mb-2 font-body">
             {{ contact.label }}
           </div>
-          <div class="text-[13px] font-medium text-charcoal font-body">
-            {{ contact.value }}
-          </div>
+          <div class="text-[13px] font-medium text-charcoal font-body">{{ contact.value }}</div>
         </div>
       </div>
     </section>
@@ -590,9 +592,8 @@
             :key="social"
             href="#"
             class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-xs text-white/50 hover:bg-gold hover:border-gold hover:text-forest transition-all duration-300 font-body"
+            >{{ social }}</a
           >
-            {{ social }}
-          </a>
         </div>
       </div>
     </footer>
@@ -600,11 +601,27 @@
 </template>
 
 <script>
+import heroArtwork from '@/components/images/hero-artwork.jpg'
+import artist1 from '@/components/images/artist1.jpg'
+import heyjago from '@/components/images/artworks/heyjago.jpg'
+import difffeathers from '@/components/images/artworks/difffeathers.jpg'
+import fourhead from '@/components/images/artworks/fourhead.jpg'
+import clientsOrder from '@/components/images/artworks/clients-order.jpg'
+import chillgirl from '@/components/images/artworks/chillgirl.jpg'
+import balance from '@/components/images/artworks/balance.jpg'
+import numb from '@/components/images/artworks/numb.jpg'
+import dna from '@/components/images/artworks/DNA.jpg'
+import duskVeil from '@/components/images/artworks/dusk-veil.jpg'
+import arthotel from '@/components/images/arthotelhexibit.jpg'
+
 export default {
   name: 'Home',
 
   data() {
     return {
+      heroArtwork,
+      artist1,
+
       stats: [
         { number: '80+', label: 'Original Paintings' },
         { number: '12', label: 'Collections' },
@@ -616,72 +633,64 @@ export default {
         {
           title: 'An Open Head',
           medium: 'Hey Jago',
-          image: '@/components/images/artworks/heyjago.jpg',
+          image: heyjago,
           link: '/artwork/1',
           span: 'sm:col-span-2 sm:row-span-2',
         },
         {
           title: 'Different Feathers',
           medium: '36x36" Acrylic on Canvas',
-          image: '@/components/images/artworks/difffeathers.jpg',
+          image: difffeathers,
           link: '/artwork/2',
           span: '',
         },
         {
           title: 'Four Head',
           medium: '36x36" Acrylic on Canvas',
-          image: '@/components/images/artworks/fourhead.jpg',
+          image: fourhead,
           link: '/artwork/3',
           span: '',
         },
         {
           title: 'Clients Order',
           medium: 'Oil on Canvas',
-          image: '@/components/images/artworks/clients-order.jpg',
+          image: clientsOrder,
           link: '/artwork/4',
           span: 'sm:col-span-2',
         },
         {
           title: 'Chill Girl',
           medium: 'Oil on Canvas',
-          image: '@/components/images/artworks/chillgirl.jpg',
+          image: chillgirl,
           link: '/artwork/5',
           span: '',
         },
         {
           title: 'BALANCE',
           medium: '5X3FT Acrylic on Canvas',
-          image: '@/components/images/artworks/balance.jpg',
+          image: balance,
           link: '/artwork/6',
           span: 'sm:col-span-2 sm:row-span-2',
         },
         {
           title: 'Numb',
           medium: '36x36" Acrylic on Canvas',
-          image: '@/components/images/artworks/numb.jpg',
+          image: numb,
           link: '/artwork/7',
           span: '',
         },
         {
           title: 'Clients Order',
           medium: 'Oil on Canvas',
-          image: '@/components/images/artworks/clients-order.jpg',
+          image: clientsOrder,
           link: '/artwork/4',
           span: 'sm:col-span-2',
         },
       ],
 
       sideCollections: [
-        {
-          name: 'Emotional Landscapes',
-          count: 12,
-          image: '@/components/images/collection-2.jpg',
-        },
-        {
-          name: 'Memory Fragments',
-          count: 9,
-          image: '@/components/images/collection-3.jpg',
-        },
+        { name: 'The DNA', count: 12, image: dna },
+        { name: 'Memory Fragments', count: 9, image: duskVeil },
       ],
 
       processSteps: [
@@ -695,40 +704,32 @@ export default {
           title: 'Sketch',
           desc: 'Rough outlines capturing the essence and composition',
         },
-        {
-          icon: '🎨',
-          title: 'Composition',
-          desc: 'Building layers of color, texture, and depth',
-        },
+        { icon: '🎨', title: 'Composition', desc: 'Building layers of color, texture, and depth' },
         {
           icon: '🖌️',
           title: 'Painting',
           desc: 'Bringing the vision to life with deliberate strokes',
         },
-        {
-          icon: '✨',
-          title: 'Final Artwork',
-          desc: 'A finished piece ready to tell its story',
-        },
+        { icon: '✨', title: 'Final Artwork', desc: 'A finished piece ready to tell its story' },
       ],
 
       exhibitions: [
         {
-          year: '2026',
-          name: 'Lagos Art Fair',
-          image: '@/components/images/exhibition-1.jpg',
+          year: '2025',
+          name: 'Humanizing Art Exhibit - The Art Hotel - Lagos, Nigeria',
+          image: arthotel,
           link: '/exhibitions/lagos-art-fair',
         },
         {
           year: '2025',
           name: 'Abuja Gallery',
-          image: '@/components/images/exhibition-2.jpg',
+          image: arthotel,
           link: '/exhibitions/abuja-gallery',
         },
         {
           year: '2024',
           name: 'Contemporary Expressions',
-          image: '@/components/images/exhibition-3.jpg',
+          image: arthotel,
           link: '/exhibitions/contemporary-expressions',
         },
       ],
