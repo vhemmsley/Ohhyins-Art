@@ -158,8 +158,10 @@
             :alt="art.title"
             class="w-full h-full object-cover transition-transform duration-800 group-hover:scale-[1.06]"
           />
+
+          <!-- Hover overlay — desktop only -->
           <div
-            class="absolute inset-0 bg-gradient-to-t from-[rgba(33,77,53,0.88)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6"
+            class="hidden sm:absolute sm:inset-0 sm:bg-gradient-to-t sm:from-[rgba(33,77,53,0.88)] sm:to-transparent sm:opacity-0 sm:group-hover:opacity-100 sm:transition-opacity sm:duration-500 sm:flex sm:flex-col sm:justify-end sm:p-6"
           >
             <div class="font-heading text-[22px] font-normal text-white mb-1">{{ art.title }}</div>
             <div class="text-[10px] text-champagne tracking-[0.15em] mb-3 uppercase font-body">
@@ -170,6 +172,16 @@
               class="text-[11px] font-medium tracking-[0.12em] uppercase text-white inline-flex items-center gap-1.5 transition-all duration-300 hover:gap-2.5 font-body"
               >View Artwork &rarr;</RouterLink
             >
+          </div>
+
+          <!-- Always-visible button — mobile only -->
+          <div class="sm:hidden absolute bottom-0 left-0 right-0 p-3 z-20">
+            <RouterLink
+              :to="art.link"
+              class="block w-full py-2.5 bg-white/95 text-forest text-[11px] font-semibold tracking-elegant uppercase rounded-lg font-body text-center shadow-md border border-border/50"
+            >
+              View Artwork
+            </RouterLink>
           </div>
         </div>
       </div>
