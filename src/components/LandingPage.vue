@@ -148,10 +148,11 @@
       <div
         class="max-w-gallery mx-auto px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[260px]"
       >
-        <div
+        <RouterLink
           v-for="(art, i) in featuredArtworks"
           :key="i"
-          :class="['relative rounded-lg overflow-hidden cursor-pointer group bg-linen', art.span]"
+          :to="art.link"
+          :class="['relative rounded-lg overflow-hidden group bg-linen block', art.span]"
         >
           <img
             :src="art.image"
@@ -167,23 +168,21 @@
             <div class="text-[10px] text-champagne tracking-[0.15em] mb-3 uppercase font-body">
               {{ art.medium }}
             </div>
-            <RouterLink
-              :to="art.link"
-              class="text-[11px] font-medium tracking-[0.12em] uppercase text-white inline-flex items-center gap-1.5 transition-all duration-300 hover:gap-2.5 font-body"
-              >View Artwork &rarr;</RouterLink
+            <span
+              class="text-[11px] font-medium tracking-[0.12em] uppercase text-white inline-flex items-center gap-1.5 transition-all duration-300 group-hover:gap-2.5 font-body"
+              >View Artwork &rarr;</span
             >
           </div>
 
-          <!-- Always-visible button — mobile only -->
-          <div class="sm:hidden absolute bottom-0 left-0 right-0 p-3 z-20">
-            <RouterLink
-              :to="art.link"
-              class="block w-full py-2.5 bg-white/95 text-forest text-[11px] font-semibold tracking-elegant uppercase rounded-lg font-body text-center shadow-md border border-border/50"
+          <!-- Small centered badge — mobile only -->
+          <div class="sm:hidden absolute bottom-3 left-1/2 -translate-x-1/2 z-20">
+            <span
+              class="inline-block px-4 py-1.5 bg-white/95 text-forest text-[10px] font-semibold tracking-elegant uppercase rounded-full font-body shadow-md border border-border/50 whitespace-nowrap"
             >
               View Artwork
-            </RouterLink>
+            </span>
           </div>
-        </div>
+        </RouterLink>
       </div>
     </section>
 
