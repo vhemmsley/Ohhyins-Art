@@ -111,7 +111,7 @@ export default {
         { to: '/', label: 'Home' },
         { to: '/collections', label: 'Collections' },
         { to: '/exhibitions', label: 'Exhibitions' },
-        { to: '/about', label: 'About' },
+
         { to: '/contact', label: 'Contact' },
       ],
     }

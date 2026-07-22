@@ -40,7 +40,7 @@
           <p
             class="font-heading text-[clamp(18px,2.2vw,21px)] font-light italic text-sage mb-8 tracking-wide"
           >
-            Take your broken Heart and make it into art 🎨
+            Take your broken Heart and make it into art
           </p>
 
           <p
@@ -104,9 +104,7 @@
 
         <!-- Right - Artwork -->
         <div class="relative flex items-center justify-center py-8">
-          <!-- Wrapper with padding to contain border -->
           <div class="relative p-4">
-            <!-- Image container with overflow-hidden to clip zoom -->
             <div class="relative w-full max-w-[420px] aspect-[3/4] overflow-hidden rounded-lg">
               <img
                 :src="heroArtwork"
@@ -114,11 +112,9 @@
                 class="w-full h-full object-cover animate-slowZoom"
               />
             </div>
-            <!-- Gold border positioned exactly around the image -->
             <div
               class="absolute inset-0 border border-gold rounded-lg opacity-25 pointer-events-none m-1.5"
             />
-            <!-- Artwork label -->
             <div class="absolute bottom-4 right-5 text-right">
               <div class="font-heading text-base text-white font-bold drop-shadow-md">RARE</div>
               <div
@@ -268,7 +264,6 @@
         </p>
       </div>
 
-      <!-- REDUCED HEIGHT: changed from h-[520px] to h-[400px] on large screens -->
       <div
         class="max-w-gallery mx-auto px-8 grid lg:grid-cols-[1.5fr_1fr] gap-4 h-auto lg:h-[400px]"
       >
@@ -349,9 +344,32 @@
             class="w-3.5 h-3.5 rounded-full bg-gold mx-auto mb-5 relative z-10 shadow-[0_0_20px_rgba(176,138,69,0.25)]"
           />
           <div
-            class="w-14 h-14 rounded-full bg-white/[0.04] border border-gold/25 flex items-center justify-center mx-auto mb-3.5 text-[22px]"
+            class="w-14 h-14 rounded-full bg-white/[0.04] border border-gold/25 flex items-center justify-center mx-auto mb-3.5"
           >
-            {{ step.icon }}
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              class="text-gold"
+            >
+              <path
+                v-if="i === 0"
+                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+              />
+              <path v-else-if="i === 1" d="M12 19l7-7 3 3-7 7-3-3z" />
+              <path v-else-if="i === 2" d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+              <path
+                v-else-if="i === 3"
+                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+              />
+              <path
+                v-else
+                d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+              />
+            </svg>
           </div>
           <div class="font-heading text-lg font-normal mb-1.5">{{ step.title }}</div>
           <div
@@ -379,14 +397,16 @@
         </p>
       </div>
 
-      <div class="max-w-gallery mx-auto px-8 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div
+        class="max-w-gallery mx-auto px-8 grid md:grid-cols-2 lg:grid-cols-3 gap-5 justify-items-center"
+      >
         <div
           v-for="exhibition in exhibitions"
-          :key="exhibition.name"
-          class="relative rounded-lg overflow-hidden cursor-pointer h-[360px] group bg-linen"
+          :key="exhibition.id"
+          class="relative rounded-lg overflow-hidden cursor-pointer h-[360px] w-full max-w-[420px] group bg-linen"
         >
           <img
-            :src="exhibition.image"
+            :src="exhibition.featuredImage"
             :alt="exhibition.name"
             class="w-full h-full object-cover transition-transform duration-800 group-hover:scale-[1.05]"
           />
@@ -396,14 +416,18 @@
             <div class="text-[11px] font-medium tracking-[0.2em] text-gold mb-2 font-body">
               {{ exhibition.year }}
             </div>
-            <div class="font-heading text-[26px] font-light text-white mb-4">
+            <div class="font-heading text-[20px] font-light text-white mb-4 leading-[1.2]">
               {{ exhibition.name }}
             </div>
+            <div class="text-[11px] text-white/60 font-body mb-3">
+              {{ exhibition.venue }} — {{ exhibition.location }}
+            </div>
             <RouterLink
-              :to="exhibition.link"
+              to="/exhibitions"
               class="text-[11px] font-medium tracking-[0.12em] uppercase text-white inline-flex items-center gap-2 opacity-0 translate-y-2.5 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-400 font-body"
-              >View Exhibition &rarr;</RouterLink
             >
+              View Exhibition &rarr;
+            </RouterLink>
           </div>
         </div>
       </div>
@@ -467,7 +491,21 @@
 
       <div class="max-w-3xl mx-auto px-8">
         <div class="bg-white p-14 rounded-lg shadow-card text-center">
-          <div class="text-gold text-base tracking-[4px] mb-6">★★★★★</div>
+          <div class="flex items-center justify-center gap-1 mb-6">
+            <svg
+              v-for="n in 5"
+              :key="n"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="text-gold"
+            >
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+          </div>
           <p class="font-heading text-2xl italic font-light text-forest leading-[1.6] mb-7">
             &ldquo;Working with Ohhyin was an unforgettable experience. The piece she created for
             our home captures exactly the emotion we wanted&mdash;every guest who sees it stops to
@@ -497,20 +535,103 @@
       </div>
 
       <div class="max-w-4xl mx-auto px-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div
-          v-for="contact in contacts"
-          :key="contact.label"
-          class="bg-white p-9 rounded-lg text-center transition-all duration-400 border border-transparent hover:border-gold hover:-translate-y-1 hover:shadow-card"
+        <a
+          href="mailto:hello@ohhyin.art"
+          class="bg-white p-9 rounded-lg text-center transition-all duration-400 border border-transparent hover:border-gold hover:-translate-y-1 hover:shadow-card group"
         >
           <div
-            class="w-12 h-12 rounded-full bg-ivory flex items-center justify-center mx-auto mb-4 text-xl text-gold"
+            class="w-12 h-12 rounded-full bg-ivory flex items-center justify-center mx-auto mb-4 group-hover:bg-gold/10 transition-colors"
           >
-            {{ contact.icon }}
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              class="text-gold"
+            >
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+            </svg>
           </div>
           <div class="text-[10px] font-medium tracking-[0.18em] uppercase text-gold mb-2 font-body">
-            {{ contact.label }}
+            Email
           </div>
-          <div class="text-[13px] font-medium text-charcoal font-body">{{ contact.value }}</div>
+          <div class="text-[13px] font-medium text-charcoal font-body">hello@ohhyin.art</div>
+        </a>
+
+        <a
+          href="https://instagram.com/ohhyin"
+          target="_blank"
+          class="bg-white p-9 rounded-lg text-center transition-all duration-400 border border-transparent hover:border-gold hover:-translate-y-1 hover:shadow-card group"
+        >
+          <div
+            class="w-12 h-12 rounded-full bg-ivory flex items-center justify-center mx-auto mb-4 group-hover:bg-gold/10 transition-colors"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              class="text-gold"
+            >
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+            </svg>
+          </div>
+          <div class="text-[10px] font-medium tracking-[0.18em] uppercase text-gold mb-2 font-body">
+            Instagram
+          </div>
+          <div class="text-[13px] font-medium text-charcoal font-body">@ohhyinsart</div>
+        </a>
+
+        <a
+          :href="whatsappLink"
+          target="_blank"
+          class="bg-white p-9 rounded-lg text-center transition-all duration-400 border border-transparent hover:border-gold hover:-translate-y-1 hover:shadow-card group"
+        >
+          <div
+            class="w-12 h-12 rounded-full bg-ivory flex items-center justify-center mx-auto mb-4 group-hover:bg-gold/10 transition-colors"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="text-gold">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+              />
+            </svg>
+          </div>
+          <div class="text-[10px] font-medium tracking-[0.18em] uppercase text-gold mb-2 font-body">
+            WhatsApp
+          </div>
+          <div class="text-[13px] font-medium text-charcoal font-body">Quick Replies</div>
+        </a>
+
+        <div
+          class="bg-white p-9 rounded-lg text-center transition-all duration-400 border border-transparent hover:border-gold hover:-translate-y-1 hover:shadow-card group"
+        >
+          <div
+            class="w-12 h-12 rounded-full bg-ivory flex items-center justify-center mx-auto mb-4 group-hover:bg-gold/10 transition-colors"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              class="text-gold"
+            >
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+          </div>
+          <div class="text-[10px] font-medium tracking-[0.18em] uppercase text-gold mb-2 font-body">
+            Studio
+          </div>
+          <div class="text-[13px] font-medium text-charcoal font-body">Lagos, Nigeria</div>
         </div>
       </div>
     </section>
@@ -589,11 +710,42 @@
         <div class="flex gap-3">
           <a
             v-for="social in socials"
-            :key="social"
-            href="#"
-            class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-xs text-white/50 hover:bg-gold hover:border-gold hover:text-forest transition-all duration-300 font-body"
-            >{{ social }}</a
+            :key="social.label"
+            :href="social.url"
+            target="_blank"
+            class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:bg-gold hover:border-gold hover:text-forest transition-all duration-300"
           >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+            >
+              <path
+                v-if="social.label === 'IG'"
+                d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+              />
+              <rect v-if="social.label === 'IG'" x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <line v-if="social.label === 'IG'" x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              <path
+                v-if="social.label === 'X'"
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                fill="currentColor"
+              />
+              <path
+                v-if="social.label === 'WA'"
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+                fill="currentColor"
+              />
+              <path
+                v-if="social.label === 'SC'"
+                d="M12.206 1c.577 0 2.553.166 4.037 2.007C17.153 4.21 17.6 6.187 17.4 8.655c.306.17.756-.044.94-.253.2-.227.433-.17.55-.085.12.085.2.32.04.56-.306.45-1.013 1.053-2.066 1.173-.16.027-.24.133-.213.293.027.16.133.24.293.213 1.173-.16 2.106.267 2.586.747.48.48.64 1.146.453 1.733-.133.427-.48.747-.96.907-.053.013-.093.053-.107.107-.013.053.013.107.053.133.373.267.56.64.533 1.04-.027.427-.267.8-.667 1.04-.08.053-.107.133-.08.213.027.08.107.133.187.133.373.027.64.213.747.48.107.267.053.56-.133.8-.267.347-.747.533-1.44.533-.16 0-.293.107-.347.267-.133.453-.48.747-.96.853-.027 0-.053.027-.067.053-.013.027-.013.053 0 .08.16.373.107.72-.16.987-.24.24-.587.347-.987.293-.107-.013-.213.04-.267.133-.213.373-.587.587-1.093.627-.027 0-.053.013-.067.04l-.453.587c-.16.2-.4.32-.667.32h-.027c-.267 0-.52-.12-.68-.32l-.453-.587c-.013-.027-.04-.04-.067-.04-.507-.04-.88-.253-1.093-.627-.053-.093-.16-.147-.267-.133-.4.053-.747-.053-.987-.293-.267-.267-.32-.613-.16-.987.013-.027.013-.053 0-.08-.013-.027-.04-.053-.067-.053-.48-.107-.827-.4-.96-.853-.053-.16-.187-.267-.347-.267-.693 0-1.173-.187-1.44-.533-.187-.24-.24-.533-.133-.8.107-.267.373-.453.747-.48.08 0 .16-.053.187-.133.027-.08 0-.16-.08-.213-.4-.24-.64-.613-.667-1.04-.027-.4.16-.773.533-1.04.053-.04.067-.093.053-.133-.013-.053-.053-.093-.107-.107-.48-.16-.827-.48-.96-.907-.187-.587-.027-1.253.453-1.733.48-.48 1.413-.907 2.586-.747.16.027.267-.053.293-.213.027-.16-.053-.267-.213-.293-1.053-.12-1.76-.723-2.066-1.173-.16-.24-.08-.475.04-.56.12-.085.35-.142.55.085.187.21.637.423.94.253-.2-2.467.247-4.445 1.157-5.648C9.587 1.166 11.563 1 12.14 1h.066z"
+                fill="currentColor"
+              />
+            </svg>
+          </a>
         </div>
       </div>
     </footer>
@@ -603,16 +755,6 @@
 <script>
 import heroArtwork from '@/components/images/hero-artwork.jpg'
 import artist1 from '@/components/images/artist1.jpg'
-import heyjago from '@/components/images/artworks/heyjago.jpg'
-import difffeathers from '@/components/images/artworks/difffeathers.jpg'
-import fourhead from '@/components/images/artworks/fourhead.jpg'
-import clientsOrder from '@/components/images/artworks/clients-order.jpg'
-import chillgirl from '@/components/images/artworks/chillgirl.jpg'
-import balance from '@/components/images/artworks/balance.jpg'
-import numb from '@/components/images/artworks/numb.jpg'
-import dna from '@/components/images/artworks/DNA.jpg'
-import duskVeil from '@/components/images/artworks/dusk-veil.jpg'
-import arthotel from '@/components/images/arthotelhexibit.jpg'
 
 export default {
   name: 'Home',
@@ -623,122 +765,27 @@ export default {
       artist1,
 
       stats: [
-        { number: '80+', label: 'Original Paintings' },
+        { number: '40+', label: 'Original Paintings' },
         { number: '12', label: 'Collections' },
         { number: '6', label: 'Exhibitions' },
         { number: '250+', label: 'Collectors' },
       ],
 
-      featuredArtworks: [
-        {
-          title: 'An Open Head',
-          medium: 'Hey Jago',
-          image: heyjago,
-          link: '/artwork/1',
-          span: 'sm:col-span-2 sm:row-span-2',
-        },
-        {
-          title: 'Different Feathers',
-          medium: '36x36" Acrylic on Canvas',
-          image: difffeathers,
-          link: '/artwork/2',
-          span: '',
-        },
-        {
-          title: 'Four Head',
-          medium: '36x36" Acrylic on Canvas',
-          image: fourhead,
-          link: '/artwork/3',
-          span: '',
-        },
-        {
-          title: 'Clients Order',
-          medium: 'Oil on Canvas',
-          image: clientsOrder,
-          link: '/artwork/4',
-          span: 'sm:col-span-2',
-        },
-        {
-          title: 'Chill Girl',
-          medium: 'Oil on Canvas',
-          image: chillgirl,
-          link: '/artwork/5',
-          span: '',
-        },
-        {
-          title: 'BALANCE',
-          medium: '5X3FT Acrylic on Canvas',
-          image: balance,
-          link: '/artwork/6',
-          span: 'sm:col-span-2 sm:row-span-2',
-        },
-        {
-          title: 'Numb',
-          medium: '36x36" Acrylic on Canvas',
-          image: numb,
-          link: '/artwork/7',
-          span: '',
-        },
-        {
-          title: 'Clients Order',
-          medium: 'Oil on Canvas',
-          image: clientsOrder,
-          link: '/artwork/4',
-          span: 'sm:col-span-2',
-        },
-      ],
-
-      sideCollections: [
-        { name: 'The DNA', count: 12, image: dna },
-        { name: 'Memory Fragments', count: 9, image: duskVeil },
-      ],
-
       processSteps: [
         {
-          icon: '💡',
           title: 'Inspiration',
           desc: 'A moment, a memory, or a feeling that demands expression',
         },
         {
-          icon: '✏️',
           title: 'Sketch',
           desc: 'Rough outlines capturing the essence and composition',
         },
-        { icon: '🎨', title: 'Composition', desc: 'Building layers of color, texture, and depth' },
+        { title: 'Composition', desc: 'Building layers of color, texture, and depth' },
         {
-          icon: '🖌️',
           title: 'Painting',
           desc: 'Bringing the vision to life with deliberate strokes',
         },
-        { icon: '✨', title: 'Final Artwork', desc: 'A finished piece ready to tell its story' },
-      ],
-
-      exhibitions: [
-        {
-          year: '2025',
-          name: 'Humanizing Art Exhibit - The Art Hotel - Lagos, Nigeria',
-          image: arthotel,
-          link: '/exhibitions/lagos-art-fair',
-        },
-        {
-          year: '2025',
-          name: 'Abuja Gallery',
-          image: arthotel,
-          link: '/exhibitions/abuja-gallery',
-        },
-        {
-          year: '2024',
-          name: 'Contemporary Expressions',
-          image: arthotel,
-          link: '/exhibitions/contemporary-expressions',
-        },
-      ],
-
-      contacts: [
-        { icon: '✉️', label: 'Email', value: 'hello@ohhyin.art' },
-        { icon: '📸', label: 'Instagram', value: '@ohhyinsart' },
-        { icon: '📞', label: 'Phone', value: '+234 800 000 0000' },
-        { icon: '📍', label: 'Studio', value: 'Lagos, Nigeria' },
+        { title: 'Final Artwork', desc: 'A finished piece ready to tell its story' },
       ],
 
       footerNav: [
@@ -750,8 +797,51 @@ export default {
 
       services: ['Original Artworks', 'Commissions', 'Prints', 'Exhibitions'],
       legals: ['Privacy Policy', 'Terms of Service', 'Shipping', 'Returns'],
-      socials: ['IG', 'FB', 'TW', 'PI'],
+      socials: [
+        { label: 'IG', url: 'https://instagram.com/ohhyin' },
+        { label: 'X', url: 'https://x.com/ohhyin' },
+        { label: 'WA', url: '' },
+        { label: 'SC', url: 'https://snapchat.com/add/ohhyin' },
+      ],
     }
+  },
+
+  computed: {
+    featuredArtworks() {
+      const all = this.$store.getters.getAllArtworks
+      return [
+        { ...all[0], span: 'sm:col-span-2 sm:row-span-2', link: '/artwork/1' },
+        { ...all[1], span: '', link: '/artwork/2' },
+        { ...all[2], span: '', link: '/artwork/3' },
+        { ...all[3], span: 'sm:col-span-2', link: '/artwork/4' },
+        { ...all[4], span: '', link: '/artwork/5' },
+        { ...all[5], span: 'sm:col-span-2 sm:row-span-2', link: '/artwork/6' },
+        { ...all[6], span: '', link: '/artwork/7' },
+        { ...all[3], span: 'sm:col-span-2', link: '/artwork/4' },
+      ]
+    },
+    sideCollections() {
+      const all = this.$store.getters.getAllArtworks
+      return [
+        { name: 'The DNA', count: 12, image: all[7]?.image },
+        { name: 'Memory Fragments', count: 9, image: all[8]?.image },
+      ]
+    },
+    exhibitions() {
+      return this.$store.getters.getAllExhibitions.slice(0, 3)
+    },
+    whatsappLink() {
+      const number = this.$store.getters.getWhatsAppNumber
+      const message = encodeURIComponent(
+        'Hi, I would like to get in touch with you about your art.',
+      )
+      return `https://wa.me/${number}?text=${message}`
+    },
+  },
+
+  mounted() {
+    // Set WhatsApp social link dynamically
+    this.socials[2].url = this.whatsappLink
   },
 }
 </script>
